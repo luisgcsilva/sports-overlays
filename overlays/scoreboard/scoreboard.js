@@ -6,6 +6,8 @@ let timerInterval; // To store the interval ID
 let totalSeconds = 0; // Timer in seconds
 let running = false; // Timer running state
 
+const pieces = document.querySelectorAll(".piece");
+
 // Handle incoming WebSocket messages
 ws.onmessage = (event) => {
   if (event.data instanceof Blob) {
@@ -225,21 +227,46 @@ function resetTimer45(minutes, seconds) {
 }
 
 function toggleScoreboard() {
-  const scoreboard = document.getElementById("scoreboard");
   if (scoreboardVisibility) {
+    pieces.forEach((el, i) => {
+      el.classList.remove(`enter-${i + 1}`); // Remove enter classes
+      el.classList.add(`exit-${i + 1}`);
+    });
+
     setTimeout(() => {
-      scoreboard.style.animation = "fadeOut 0.5s forwards";
-        setTimeout(() => {
-          scoreboard.style.display = "none";
-        }, 500); // Wait for the animation to finish before hiding
-        localStorage.setItem("scoreboardVisibility", "hidden");
-    }, 500);
+      scoreboardWrapper.style.animation = "slideOut 1s ease forwards";
+      setTimeout(() => {
+        scoreboardWrapper.style.display = "none";
+        pieces.forEach((el) => {
+          el.classList.remove(
+            "exit-1",
+            "exit-2",
+            "exit-3",
+            "exit-4",
+            "exit-5",
+            "exit-6"
+          ); // Remove all classes
+          el.classList.add("piece"); // Add the base class back
+        });
+      }, 1600); // Wait for the animation to finish before hiding
+    }, 1600);
   } else {
-    scoreboard.style.display = "flex";
-    scoreboard.style.animation = "fadeIn 0.5s forwards";
-    localStorage.setItem("scoreboardVisibility", "shown");
+    scoreboardWrapper.style.display = "flex";
+    scoreboardWrapper.style.animation = "slideIn 1s ease forwards";
+    setTimeout(() => {
+      pieces.forEach((el, i) => {
+        el.classList.remove(
+          "exit-1",
+          "exit-2",
+          "exit-3",
+          "exit-4",
+          "exit-5",
+          "exit-6"
+        ); // Remove exit classes
+        el.classList.add(`enter-${i + 1}`); // Add enter classes
+      });
+    }, 500); // Show immediately
   }
-  
   scoreboardVisibility = !scoreboardVisibility; // Toggle visibility state
 }
 
