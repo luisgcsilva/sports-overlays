@@ -1,0 +1,43 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>OBS Overlay</title>
+  <link rel="stylesheet" href="scoreboard.css">
+</head>
+<body>
+  <div id="scoreboard">
+    <div id="goalOverlay">
+      <div class="goalWrapper">
+        <span id="goalText">GOOOOOOOOLLLLLLLOOOOOOOO!!!!</span>
+      </div>
+    </div>
+    <table class="score-table">
+      <tr>
+        <td><img src="/assets/84107179.png" class="logo" /></td>
+        <td><span class="team-name">CDPM</span></td>
+        <td>
+          <span class="score-wrapper">
+            <span class="score" id="homeScore">0</span>
+          </span>
+        </td>
+      </tr>
+      <tr class="divider-row">
+        <td colspan="3"></td>
+      <tr>
+        <td><img src="/assets/Almodovar.png" class="logo" /></td>
+        <td><span class="team-name">CDA</span></td>
+        <td><span>
+          <span class="score-wrapper">
+            <span class="score" id="awayScore">0</span>
+          </span>
+        </td>
+      </tr>
+    </table>
+    <div class="divider-vertical"></div>
+    <span id="timer">00:00</span>
+  </div>
+  <script src="scoreboard.js"></script>
+</body>
+</html>

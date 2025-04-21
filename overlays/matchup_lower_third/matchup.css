@@ -1,0 +1,204 @@
+#matchupWrapper {
+  position: absolute;
+  bottom: 5%;
+  left: 0;
+  width: 100%;
+  display: none;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 9;
+}
+
+#matchupWrapper.hidden {
+  opacity: 0;
+  transform: translateY(100%);
+}
+
+#matchup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.75);
+  border-radius: 12px;
+  color: white;
+  font-family: sans-serif;
+  font-size: 18px;
+  position: relative;
+  width: 50%;
+}
+
+.piece {
+  opacity: 0;
+  position: relative;
+  transform: translateX(-100%);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  transition-delay: 0s;
+}
+
+/* Slide-in with staggered delays */
+.piece.enter-1 {
+  opacity: 1;
+  transform: translateX(0);
+  transition-delay: 0s; /* No delay */
+}
+.piece.enter-2 {
+  opacity: 1;
+  transform: translateX(0);
+  transition-delay: 0.1s; /* Slight delay */
+}
+.piece.enter-3 {
+  opacity: 1;
+  transform: translateX(0);
+  transition-delay: 0.2s;
+}
+.piece.enter-4 {
+  opacity: 1;
+  transform: translateX(0);
+  transition-delay: 0.3s;
+}
+.piece.enter-5 {
+  opacity: 1;
+  transform: translateX(0);
+  transition-delay: 0.4s;
+}
+.piece.enter-6 {
+  opacity: 1;
+  transform: translateX(0);
+  transition-delay: 0.5s;
+}
+
+.piece.exit-1 {
+  opacity: 0;
+  transform: translateY(100%);
+  transition-delay: 0s;
+}
+.piece.exit-2 {
+  opacity: 0;
+  transform: translateY(100%);
+  transition-delay: 0.1s;
+}
+.piece.exit-3 {
+  opacity: 0;
+  transform: translateY(100%);
+  transition-delay: 0.2s;
+}
+.piece.exit-4 {
+  opacity: 0;
+  transform: translateY(100%);
+  transition-delay: 0.3s;
+}
+.piece.exit-5 {
+  opacity: 0;
+  transform: translateY(100%);
+  transition-delay: 0.4s;
+}
+.piece.exit-6 {
+  opacity: 0;
+  transform: translateY(100%);
+  transition-delay: 0.5s;
+}
+
+.divider {
+  height: 2px;
+  background: rebeccapurple;
+  width: 100%;
+  margin: 0.5rem auto;
+  opacity: 0;
+}
+
+.piece.divider.enter-3 {
+  opacity: 1;
+  transform: scaleX(1);
+  transition-delay: 0.2s; /* No delay */
+}
+.piece.divider.exit-3 {
+  opacity: 0;
+  transform: scaleX(0);
+  transition-delay: 0.2s; /* No delay */
+}
+
+.competitionInfo {
+  width: 100%;
+  text-align: center;
+  font-weight: bold;
+  opacity: 0.9;
+  position: relative;
+  height: 40px;
+}
+
+.compLogo {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+}
+
+.teamsRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: inherit;
+  gap: 20px;
+  padding: 5px 10px 5px 10px;
+}
+
+.matchday {
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  opacity: 0.9;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.team {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.teamLogo {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
+
+.teamName {
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.vs {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+/* Slide-up animation */
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0%);
+    opacity: 1;
+  }
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(0%);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+}

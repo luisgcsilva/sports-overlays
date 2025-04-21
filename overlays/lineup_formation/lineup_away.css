@@ -1,0 +1,81 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+  color: white;
+  background: url('field.png') no-repeat center center;
+  background-size: cover;
+  overflow: hidden;
+}
+
+.team-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 10px 20px;
+}
+
+.team-info {
+  display: flex;
+  align-items: center;
+}
+
+.team-logo {
+  height: 60px;
+  margin-right: 10px;
+}
+
+.team-name {
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.coach-info {
+  display: flex;
+  align-items: center;
+}
+
+.coach-photo {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 10px;
+}
+
+.coach-name {
+  font-size: 18px;
+}
+
+.lineup-section {
+  position: relative;
+  width: 100%;
+  height: 90vh;
+}
+
+.formation {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.player {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 6px;
+  border-radius: 8px;
+  width: 80px;
+}
+
+.player img {
+  width: 100%;
+  border-radius: 4px;
+}
+
+.player .name {
+  margin-top: 4px;
+  font-size: 12px;
+}

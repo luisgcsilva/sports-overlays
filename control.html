@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Overlay Control Panel</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #111;
+      color: #fff;
+      padding: 20px;
+    }
+    button, input, select {
+      margin: 5px;
+      padding: 10px;
+      font-size: 16px;
+    }
+    .section {
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Overlay Control Panel</h1>
+
+  <div class="section">
+    <h2>Timer</h2>
+    <button onclick="toggleScoreboard()">Toggle Scoreboard</button>
+    <button onclick="startTimer()">Start</button>
+    <button onclick="stopTimer()">Stop</button>
+    <button onclick="setTime()">Set Time</button>
+    <button onclick="setTime45()">Set Time 45:00</button>
+    <button onclick="resetTimer()">Reset</button>
+    <button onclick="resetTimer45()">Reset 45:00</button>
+  </div>
+
+  <div class="section">
+    <h2>Goals</h2>
+    <input id="scorer" placeholder="Scorer Name" />
+    <button onclick="goalHome()">Goal Home</button>
+    <button onclick="removeGoalHome()">Remove Goal Home</button>
+    <button onclick="goalAway()">Goal Away</button>
+    <button onclick="removeGoalAway()">Remove Goal Away</button>
+  </div>
+
+  <div class="section">
+    <button onclick="toggleMatchup()">Toggle Matchup</button>
+  </div>
+
+  <div class="section">
+    <h2>Cards</h2>
+    <select id="cardTeam">
+      <option value="home">Home</option>
+      <option value="away">Away</option>
+    </select>
+    <button onclick="sendCard('yellowCard')">Yellow Card</button>
+    <button onclick="sendCard('redCard')">Red Card</button>
+  </div>
+
+  <div class="section">
+    <h2>Substitution</h2>
+    <select id="subTeam">
+      <option value="home">Home</option>
+      <option value="away">Away</option>
+    </select>
+    <button onclick="sendSub()">Substitution</button>
+  </div>
+
+  <div class="section">
+    <h2>Lineups</h>
+  
+    <div>
+      <h3>Home Team Lineup</h3>
+      <input id="homeTeamName" placeholder="Home Team Name" />
+      <textarea id="homeLineup" placeholder="Enter home lineup, one per line" rows="6" cols="30"></textarea><br>
+      <button onclick="sendLineup('home')">Send Home Lineup</button>
+    </div>
+
+    <div>
+      <h3>Away Team Lineup</h3>
+      <input id="awayTeamName" placeholder="Away Team Name" />
+      <textarea id="awayLineup" placeholder="Enter away lineup, one per line" rows="6" cols="30"></textarea><br>
+      <button onclick="sendLineup('away')">Send Away Lineup</button>
+    </div>
+  </div>
+
+
+  <script>
+    const ws = new WebSocket('ws://localhost:3000');
+    console.log("WebSocket readyState:", ws.readyState);
+    ws.onopen = () => console.log("✅ WebSocket connected");
+    ws.onclose = () => console.log("❌ WebSocket disconnected");
+
+    ws.onmessage = (event) => {
+      console.log("Received:", event.data);
+    };
+
+    function setTime() {
+      ws.send(JSON.stringify({ type: 'setTime', minutes: 0, seconds: 0 }));
+    }
+
+    function setTime45() {
+      ws.send(JSON.stringify({ type: 'setTime45', minutes: 45, seconds: 0 }));
+    }
+
+    function startTimer() {
+      ws.send(JSON.stringify({ type: 'startTimer' }));
+    }
+
+    function stopTimer() {
+      ws.send(JSON.stringify({ type: 'stopTimer' }));
+    }
+
+    function resetTimer() {
+      ws.send(JSON.stringify({ type: 'resetTimer' }));
+    }
+
+    function resetTimer45() {
+      ws.send(JSON.stringify({ type: 'resetTimer45', minutes: 45, seconds: 0 }));
+    }
+
+    function sendGoal() {
+      const team = document.getElementById('goalTeam').value;
+      const scorer = document.getElementById('goalScorer').value;
+      ws.send(JSON.stringify({ type: 'goal', team, scorer }));
+    }
+
+    function goalHome() {
+      const scorer = document.getElementById('scorer').value;
+      ws.send(JSON.stringify({ type: 'homeGoal', team: 'home', scorer: scorer }));
+    }
+
+    function removeGoalHome () {
+      ws.send(JSON.stringify({ type: 'removeGoalHome', team: 'home' }));
+    }
+
+    function resetGoalsHome() {
+      
+    }
+
+    function goalAway() {
+      ws.send(JSON.stringify({ type: 'awayGoal', team: 'away' }));
+    }
+
+    function removeGoalAway() {
+      ws.send(JSON.stringify({ type: 'removeGoalAway', team: 'away' }));
+    }
+
+
+    function sendCard(type) {
+      const team = document.getElementById('cardTeam').value;
+      ws.send(JSON.stringify({ type, team }));
+    }
+
+    function sendSub() {
+      const team = document.getElementById('subTeam').value;
+      ws.send(JSON.stringify({ type: 'substitution', team }));
+    }
+
+    function toggleScoreboard() {
+      const currentState = localStorage.getItem('scoreboardVisible');
+
+      if (currentState === 'hidden') {
+        console.log("Scoreboard is hidden, showing it now.", currentState);
+        localStorage.setItem('scoreboardVisible', 'shown');
+        ws.send(JSON.stringify({ type: 'showScoreboard' }));
+      } else {
+        console.log("Scoreboard is shown, hiding it now.", currentState);
+        localStorage.setItem('scoreboardVisible', 'hidden');
+        ws.send(JSON.stringify({ type: 'hideScoreboard' }));
+      }
+    }
+
+    function toggleMatchup() {
+      ws.send(JSON.stringify({ type: 'toggleMatchup' }));
+    }
+
+  </script>
+</body>
+</html>

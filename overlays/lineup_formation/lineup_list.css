@@ -1,0 +1,131 @@
+body {
+      font-family: 'Arial', sans-serif;
+      background-color: #111;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+    }
+
+    .team-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #222;
+      width: 100%;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    .team-info {
+      display: flex;
+      align-items: center;
+    }
+
+    .team-logo {
+      width: 50px;
+      height: auto;
+      margin-right: 10px;
+    }
+
+    .team-name {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .coach-info {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .coach-photo {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+
+    .coach-name {
+      font-size: 18px;
+      font-style: italic;
+    }
+
+    .lineup-section {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      width: 100%;
+    }
+
+    .lineup-list {
+      background-color: #333;
+      padding: 20px;
+      border-radius: 10px;
+      width: 300px;
+      margin-right: 20px;
+      height: calc(100vh - 180px);
+      overflow-y: auto;
+    }
+
+    .lineup-list h2 {
+      text-align: center;
+      color: #f0f0f0;
+      font-size: 22px;
+      margin-bottom: 20px;
+    }
+
+    .lineup-list ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .lineup-list li {
+      padding: 10px;
+      border-bottom: 1px solid #444;
+      font-size: 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .lineup-list li:last-child {
+      border-bottom: none;
+    }
+
+    .lineup-list li span {
+      font-weight: bold;
+      color: #f0f0f0;
+    }
+
+    .formation {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-gap: 10px;
+      width: 50%;
+      margin-left: 20px;
+      position: relative;
+    }
+
+    .player {
+      text-align: center;
+      padding: 5px;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 5px;
+    }
+
+    .player img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      margin-bottom: 5px;
+    }
+
+    .player .name {
+      font-size: 14px;
+      color: #f0f0f0;
+    }
