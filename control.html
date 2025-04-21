@@ -22,7 +22,7 @@
 </head>
 <body>
   <h1>Overlay Control Panel</h1>
-
+  <div class="grid">
   <div class="section">
     <h2>Timer</h2>
     <button onclick="toggleScoreboard()">Toggle Scoreboard</button>
@@ -32,6 +32,8 @@
     <button onclick="setTime45()">Set Time 45:00</button>
     <button onclick="resetTimer()">Reset</button>
     <button onclick="resetTimer45()">Reset 45:00</button>
+    <input type="number" id="extra-time" placeholder="Extra Time" />
+    <button onclick="toggleExtraTime()">Toggle Extra Time</button>
   </div>
 
   <div class="section">
@@ -83,6 +85,8 @@
       <button onclick="sendLineup('away')">Send Away Lineup</button>
     </div>
   </div>
+
+</div>
 
 
   <script>
@@ -163,6 +167,11 @@
 
     function toggleMatchup() {
       ws.send(JSON.stringify({ type: 'toggleMatchup' }));
+    }
+
+    function toggleExtraTime() {
+      const extraTime = document.getElementById('extra-time').value;
+      ws.send(JSON.stringify({ type: 'toggleExtraTime', minutes: extraTime }));
     }
 
   </script>

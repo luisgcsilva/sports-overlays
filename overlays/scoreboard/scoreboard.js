@@ -41,7 +41,7 @@ function handleMessage(data) {
       handleGoal("homeScore", data.scorer);
       break;
     case "awayGoal":
-      handleGoal("awayScore");
+      updateScorePlus("awayScore");
       break;
     case "removeGoalHome":
       updateScoreMinus("homeScore");
@@ -70,11 +70,15 @@ function handleMessage(data) {
     case "substitution":
       showSubstitution(data);
       break;
+    case "toggleExtraTime":
+      console.log("Toggle extra time");
+      showExtraTime(data);
+      break;
   }
 }
 
-function handleGoal(teamId, scorer) {
-  //await triggerGoalAnimation(scorer);
+async function handleGoal(teamId, scorer) {
+  await triggerGoalAnimation(scorer);
   updateScorePlus(teamId);
 }
 
@@ -268,6 +272,16 @@ function toggleScoreboard() {
     }, 500); // Show immediately
   }
   scoreboardVisibility = !scoreboardVisibility; // Toggle visibility state
+}
+
+function showExtraTime(data) {
+  const extraTimePopup = document.getElementById("extraTimePopup");
+  extraTimePopup.textContent = `+${data.minutes}`;
+  if (extraTimePopup.classList.contains("show")) {
+    extraTimePopup.classList.remove("show");
+  } else {
+    extraTimePopup.classList.add("show");
+  }
 }
 
 // Show a substitution with team logos (you can adjust the logo placement and animation)

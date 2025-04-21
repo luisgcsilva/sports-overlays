@@ -119,8 +119,6 @@ body {
 }
 #goalOverlay {
   position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
   height: 100%;
   background: rgba(255, 215, 0, 0.95);
@@ -131,7 +129,6 @@ body {
   z-index: 10;
   opacity: 0;
   transition: opacity 0.5s ease;
-  pointer-events: none;
   border-radius: 10px;
 }
 #goalText {
@@ -144,32 +141,25 @@ body {
   opacity: 1;
   left: 0;
 }
-#goalWrapper {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.popup {
+#extraTimePopup {
   position: absolute;
-  bottom: 10%;
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 20px 40px;
-  background: rgba(0, 0, 0, 0.85);
-  color: yellow;
-  font-size: 2em;
-  border: 2px solid yellow;
-  border-radius: 10px;
-  opacity: 0;
-  transition: opacity 0.5s, transform 0.5s;
+  right: 1px;
+  bottom: 1px;
+  padding: 10px;
+  margin-top: 1px;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 5px;
+  opacity: 0; /* Hidden initially */
+  visibility: hidden; /* Hidden initially */
+  transition: opacity 0.5s ease, visibility 0s 0.5s; /* Smooth fade-in/out */
+  z-index: 10; /* Ensure it appears on top */
 }
-.popup.show {
-  opacity: 1;
-  transform: translateX(-50%) translateY(-20px);
+#extraTimePopup.show {
+  opacity: 1; /* Show when class is added */
+  visibility: visible; /* Make it visible */
+  transition: opacity 0.5s ease, visibility 0s 0s; /* Smooth fade-in */
 }
 .hidden {
   display: none;
