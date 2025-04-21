@@ -158,17 +158,7 @@
     }
 
     function toggleScoreboard() {
-      const currentState = localStorage.getItem('scoreboardVisible');
-
-      if (currentState === 'hidden') {
-        console.log("Scoreboard is hidden, showing it now.", currentState);
-        localStorage.setItem('scoreboardVisible', 'shown');
-        ws.send(JSON.stringify({ type: 'showScoreboard' }));
-      } else {
-        console.log("Scoreboard is shown, hiding it now.", currentState);
-        localStorage.setItem('scoreboardVisible', 'hidden');
-        ws.send(JSON.stringify({ type: 'hideScoreboard' }));
-      }
+      ws.send(JSON.stringify({ type: 'toggleScoreboard' }));
     }
 
     function toggleMatchup() {

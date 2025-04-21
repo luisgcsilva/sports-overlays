@@ -31,70 +31,49 @@ ws.onmessage = (event) => {
 
 // Handle the parsed data
 function handleMessage(data) {
-  if (data.type === "showScoreboard") {
-    const scoreboard = document.getElementById("scoreboard");
-    scoreboard.style.display = "flex";
-    scoreboard.style.animation = "fadeIn 0.5s forwards";
-    localStorage.setItem("scoreboardVisibility", "shown");
+  switch (data.type) {
+    case "toggleScoreboard":
+      toggleScoreboard();
+      break;
+    case "homeGoal":
+      handleGoal("homeScore", data.scorer);
+      break;
+    case "awayGoal":
+      handleGoal("awayScore");
+      break;
+    case "removeGoalHome":
+      updateScoreMinus("homeScore");
+      break;
+    case "removeGoalAway":
+      updateScoreMinus("awayScore");
+      break;
+    case "startTimer":
+      startTimer();
+      break;
+    case "stopTimer":
+      stopTimer();
+      break;
+    case "setTime":
+      setTime(data.minutes, data.seconds);
+      break;
+    case "setTime45":
+      setTime45(data.minutes, data.seconds);
+      break;
+    case "resetTimer":
+      resetTimer();
+      break;
+    case "resetTimer45":
+      resetTimer45(data.minutes, data.seconds);
+      break;
+    case "substitution":
+      showSubstitution(data);
+      break;
   }
-  if (data.type === "hideScoreboard") {
-    const scoreboard = document.getElementById("scoreboard");
-    scoreboard.style.animation = "fadeOut 0.5s forwards";
-    setTimeout(() => {
-      scoreboard.style.display = "none";
-    }, 500); // Wait for the animation to finish before hiding
-    localStorage.setItem("scoreboardVisibility", "hidden");
-  }
-  if (data.type === "homeGoal") {
-    const el = document.getElementById("homeScore");
-    //el.textContent = parseInt(el.textContent) + 1;
-    handleGoal("homeScore", data.scorer);
-  }
-  if (data.type === "awayGoal") {
-    const el = document.getElementById("awayScore");
-
-    handleGoal("awayScore");
-    //el.textContent = parseInt(el.textContent) + 1;
-  }
-  if (data.type === "removeGoalHome") {
-    const el = document.getElementById("homeScore");
-    //el.textContent = parseInt(el.textContent) - 1;
-    updateScoreMinus("homeScore", parseInt(el.textContent) - 1);
-  }
-  if (data.type === "removeGoalAway") {
-    const el = document.getElementById("awayScore");
-    //el.textContent = parseInt(el.textContent) - 1;
-    updateScoreMinus("awayScore", parseInt(el.textContent) - 1);
-  }
-  // Handle other types of messages (like timer, substitution, etc.)
-  if (data.type === "startTimer") {
-    startTimer();
-  }
-  if (data.type === "stopTimer") {
-    stopTimer();
-  }
-  if (data.type === "setTime45") {
-    setTime45(data.minutes, data.seconds);
-  }
-  if (data.type === "setTime") {
-    setTime(data.minutes, data.seconds);
-  }
-  if (data.type === "resetTimer") {
-    resetTimer();
-  }
-  if (data.type === "resetTimer45") {
-    resetTimer45(data.minutes, data.seconds);
-  }
-  if (data.type === "substitution") {
-    showSubstitution(data);
-  }
-  
 }
 
-async function handleGoal(teamId, scorer) {
-  await triggerGoalAnimation(scorer);
-  const el = document.getElementById(teamId);
-  updateScorePlus(teamId, parseInt(el.textContent) + 1);
+function handleGoal(teamId, scorer) {
+  //await triggerGoalAnimation(scorer);
+  updateScorePlus(teamId);
 }
 
 function triggerGoalAnimation(text) {
@@ -131,9 +110,10 @@ function triggerGoalAnimation(text) {
   });
 }
 
-function updateScorePlus(id, newValue) {
+function updateScorePlus(id) {
   const wrapper = document.querySelector(`#${id}`).parentElement;
   const current = document.getElementById(id);
+  let newValue = parseInt(current.textContent) + 1;
 
   const oldScore = current.cloneNode(true);
   oldScore.classList.remove("slide-in");
@@ -154,26 +134,30 @@ function updateScorePlus(id, newValue) {
   }, 500); // Remove the old score after the animation
 }
 
-function updateScoreMinus(id, newValue) {
+function updateScoreMinus(id) {
   const wrapper = document.querySelector(`#${id}`).parentElement;
   const current = document.getElementById(id);
+  let newValue = parseInt(current.textContent) - 1;
 
-  const oldScore = current.cloneNode(true);
-  oldScore.classList.remove("slide-out");
-  oldScore.classList.add("slide-in");
-
-  const newScore = current.cloneNode(true);
+  const newScore = document.createElement("span");
   newScore.id = id;
   newScore.textContent = newValue;
-  newScore.classList.remove("slide-in");
-  newScore.classList.add("slide-out");
+  newScore.classList.add("score", "slide-in-right");
+
+  const oldScore = current.cloneNode(true);
+  oldScore.classList.remove("slide-in-right");
+  oldScore.classList.add("slide-out-right");
 
   wrapper.innerHTML = ""; // Clear the wrapper
   wrapper.appendChild(oldScore); // Append the old score
   wrapper.appendChild(newScore); // Append the new score
 
   setTimeout(() => {
-    if (wrapper.contains(oldScore)) oldScore.remove();
+    if (oldScore) oldScore.remove();
+  }, 500); // Remove the old score after the animation
+
+  setTimeout(() => {
+    newScore.classList.remove("slide-in-right");
   }, 500); // Remove the old score after the animation
 }
 
@@ -240,19 +224,23 @@ function resetTimer45(minutes, seconds) {
   console.log("Timer reset!");
 }
 
-function checkScoreboardVisibility() {
+function toggleScoreboard() {
   const scoreboard = document.getElementById("scoreboard");
-  const visibility = localStorage.getItem("scoreboardVisibility");
-  console.log(visibility);
-  if (visibility === "shown") {
-    console.log("Scoreboard is shown");
-    scoreboard.style.display = "block";
+  if (scoreboardVisibility) {
+    setTimeout(() => {
+      scoreboard.style.animation = "fadeOut 0.5s forwards";
+        setTimeout(() => {
+          scoreboard.style.display = "none";
+        }, 500); // Wait for the animation to finish before hiding
+        localStorage.setItem("scoreboardVisibility", "hidden");
+    }, 500);
   } else {
-    console.log("Scoreboard is hidden");
-    scoreboard.style.display = "none";
+    scoreboard.style.display = "flex";
+    scoreboard.style.animation = "fadeIn 0.5s forwards";
+    localStorage.setItem("scoreboardVisibility", "shown");
   }
-
-  window.onload = checkScoreboardVisibility;
+  
+  scoreboardVisibility = !scoreboardVisibility; // Toggle visibility state
 }
 
 // Show a substitution with team logos (you can adjust the logo placement and animation)
