@@ -62,6 +62,7 @@ function toggleMatchup() {
     matchupWrapper.style.display = "flex";
     matchupWrapper.style.animation = "slideUp 1s ease forwards"; // Add animation to the wrapper
     divider.style.animation = "slideUp 1s ease forwards"; // Add animation to the divider
+    divider.style.display = "block"; // Show the divider
     setTimeout(() => {
       pieces.forEach((el, i) => {
         el.classList.remove(
