@@ -5,6 +5,8 @@ let scoreboardWrapper = document.getElementById("scoreboard");
 let timerInterval; // To store the interval ID
 let totalSeconds = 0; // Timer in seconds
 let running = false; // Timer running state
+let redCardsHome = 0; // Red cards for home team
+let redCardsAway = 0; // Red cards for away team
 
 const pieces = document.querySelectorAll(".piece");
 
@@ -74,6 +76,29 @@ function handleMessage(data) {
       console.log("Toggle extra time");
       showExtraTime(data);
       break;
+    case "redCardHome":
+      redCardsHome++;
+      updateRedCards("home", redCardsHome);
+      break;
+    case "redCardAway":
+      redCardsAway++;
+      updateRedCards("away", redCardsAway);
+      break;
+    case "removeRedCardHome":
+      redCardsHome--;
+      updateRedCards("home", redCardsHome);
+      break;
+    case "removeRedCardAway":
+      redCardsAway--;
+      updateRedCards("away", redCardsAway);
+      break;
+    case "toggleGoalScorer":
+      showGoalScorer(data.team, data.scorer);
+      break;
+    case "toggleRedCards":
+      console.log("Toggle red cards for team:", data.team);
+      toggleRedCards(data.team);
+      break;
   }
 }
 
@@ -87,7 +112,7 @@ function triggerGoalAnimation(text) {
     const overlay = document.getElementById("goalOverlay");
     const textEl = document.getElementById("goalText");
 
-    textEl.textContent = "GOOOOLLLLLOOOO!!!             DE             " + text;
+    textEl.textContent = "GOOOOLLLLLOOOO!!! " + text;
 
     overlay.style.opacity = 0; // Hide the overlay
     textEl.style.transition = "none"; // reset animation
@@ -114,6 +139,21 @@ function triggerGoalAnimation(text) {
       }, duration * 1000); // Wait for the text to finish sliding
     });
   });
+}
+
+function showGoalScorer(team, scorer) {
+  const popup = document.getElementById("goalScorerPopup");
+  const text = document.getElementById("goalScorerText");
+  const logo = document.getElementById("goalTeamLogo");
+
+  text.textContent = scorer;
+  logo.src = team === "home" ? "/assets/84107179.png" : "/assets/Almodovar.png"; // Set the logo based on the team
+
+  popup.classList.add("show");
+
+  setTimeout(() => {
+    popup.classList.remove("show");
+  }, 4000); // Show for 4 seconds
 }
 
 function updateScorePlus(id) {
@@ -281,6 +321,44 @@ function showExtraTime(data) {
     extraTimePopup.classList.remove("show");
   } else {
     extraTimePopup.classList.add("show");
+  }
+}
+
+function updateRedCards(team, count, show = true) {
+  const container = document.getElementById(`${team}RedCards`);
+
+  if (!container) return;
+
+  container.innerHTML = ""; // Clear the container
+
+  for (let i = 0; i < count; i++) {
+    const redCard = document.createElement("div");
+    redCard.className = "red-card";
+    container.appendChild(redCard);
+  }
+}
+
+function toggleRedCards(team) {
+  const homeRedCards = document.getElementById("homeRedCards");
+  const awayRedCards = document.getElementById("awayRedCards");
+  const homeRedCardsVisibility = homeRedCards.checkVisibility();
+  const awayRedCardsVisibility = awayRedCards.checkVisibility();
+  console.log("Toggling red cards for team:", team);
+
+  if (team === "home") {
+    if (homeRedCardsVisibility) {
+      homeRedCards.classList.add("hidden");
+    } else {
+      homeRedCards.classList.remove("hidden");
+    }
+  } else {
+    if (awayRedCardsVisibility) {
+      awayRedCards.classList.add("hidden");
+      homeRedCards.visibility = false;
+    } else {
+      awayRedCards.classList.remove("hidden");
+      homeRedCards.visibility = true;
+    }
   }
 }
 

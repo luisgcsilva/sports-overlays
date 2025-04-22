@@ -7,7 +7,6 @@
 </head>
 <body>
   <h1>Overlay Control Panel</h1>
-  <div class="grid">
     <div class="section">
       <h2>Timer</h2>
         <button onclick="toggleScoreboard()">Toggle Scoreboard</button>
@@ -28,13 +27,24 @@
         <button onclick="removeGoalHome()">Remove Goal Home</button>
         <button onclick="goalAway()">Goal Away</button>
         <button onclick="removeGoalAway()">Remove Goal Away</button>
+        <button onclick="toggleHomeGoalScorer()">Toggle Home Goal Scorer</button>
+        <button onclick="toggleAwayGoalScorer()">Toggle Away Goal Scorer</button>
     </div>
     
     <div class="section">
       <h2>Matchup</h2>
         <button onclick="toggleMatchup()">Toggle Matchup</button>
     </div>
-  </div>
+
+    <div class="section">
+      <h2>Red Cards</h2>
+        <button onclick="redCardHome()">Red Card Home</button>
+        <button onclick="removeRedCardHome()">Remove Red Card Home</button>
+        <button onclick="redCardAway()">Red Card Away</button>
+        <button onclick="removeRedCardAway()">Remove Red Card Away</button>
+        <button onclick="toggleHomeRedCards()">Toggle Home Red Cards</button>
+        <button onclick="toggleAwayRedCards()">Toggle Away Red Cards</button>
+    </div>
 <script src="control.js"></script>
 </body>
 </html>

@@ -7,7 +7,9 @@
   <link rel="stylesheet" href="scoreboard.css">
 </head>
 <body>
-  <div id="background">
+  <div class="scoreboardWrapper">
+    <div class="red-card-container" id="homeRedCards">
+    </div>
     <div id="scoreboard">
       <div id="goalOverlay">
           <span id="goalText"></span>
@@ -39,6 +41,13 @@
       <div id="extraTimePopup">
         <span id="extra-time"></span>
       </div>
+    </div>
+    <div class="red-card-container" id="awayRedCards">
+    </div>
+    <div class="goal-scorer-popup" id="goalScorerPopup">
+      <span class="goal-icon">⚽</span>
+      <img id="goalTeamLogo" class="goal-logo" src="" />
+      <span id="goalScorerText"></span>
     </div>
   </div>
   <script src="scoreboard.js"></script>
