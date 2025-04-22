@@ -8,7 +8,7 @@ let running = false; // Timer running state
 let redCardsHome = 0; // Red cards for home team
 let redCardsAway = 0; // Red cards for away team
 
-const pieces = document.querySelectorAll(".piece");
+const pieces = document.querySelectorAll(".piece"); // All scoreboard pieces to animate
 
 // Handle incoming WebSocket messages
 ws.onmessage = (event) => {
@@ -104,6 +104,54 @@ function handleMessage(data) {
       break;
   }
 }
+
+// Scoreboard Functions
+
+function toggleScoreboard() {
+  if (scoreboardVisibility) {
+    pieces.forEach((el, i) => {
+      el.classList.remove(`enter-${i + 1}`); // Remove enter classes
+      el.classList.add(`exit-${i + 1}`);
+    });
+
+    setTimeout(() => {
+      scoreboardWrapper.style.animation = "slideOut 1s ease forwards";
+      setTimeout(() => {
+        scoreboardWrapper.style.display = "none";
+        pieces.forEach((el) => {
+          el.classList.remove(
+            "exit-1",
+            "exit-2",
+            "exit-3",
+            "exit-4",
+            "exit-5",
+            "exit-6"
+          ); // Remove all classes
+          el.classList.add("piece"); // Add the base class back
+        });
+      }, 1600); // Wait for the animation to finish before hiding
+    }, 1600);
+  } else {
+    scoreboardWrapper.style.display = "flex";
+    scoreboardWrapper.style.animation = "slideIn 1s ease forwards";
+    setTimeout(() => {
+      pieces.forEach((el, i) => {
+        el.classList.remove(
+          "exit-1",
+          "exit-2",
+          "exit-3",
+          "exit-4",
+          "exit-5",
+          "exit-6"
+        ); // Remove exit classes
+        el.classList.add(`enter-${i + 1}`); // Add enter classes
+      });
+    }, 500); // Show immediately
+  }
+  scoreboardVisibility = !scoreboardVisibility; // Toggle visibility state
+}
+
+// Goal Functions 
 
 async function handleGoal(teamId, scorer) {
   await triggerGoalAnimation(scorer);
@@ -211,6 +259,7 @@ function updateScoreMinus(id) {
 }
 
 // Timer functions
+
 function startTimer() {
   if (running) return; // Prevent multiple intervals
 
@@ -273,50 +322,6 @@ function resetTimer45(minutes, seconds) {
   console.log("Timer reset!");
 }
 
-function toggleScoreboard() {
-  if (scoreboardVisibility) {
-    pieces.forEach((el, i) => {
-      el.classList.remove(`enter-${i + 1}`); // Remove enter classes
-      el.classList.add(`exit-${i + 1}`);
-    });
-
-    setTimeout(() => {
-      scoreboardWrapper.style.animation = "slideOut 1s ease forwards";
-      setTimeout(() => {
-        scoreboardWrapper.style.display = "none";
-        pieces.forEach((el) => {
-          el.classList.remove(
-            "exit-1",
-            "exit-2",
-            "exit-3",
-            "exit-4",
-            "exit-5",
-            "exit-6"
-          ); // Remove all classes
-          el.classList.add("piece"); // Add the base class back
-        });
-      }, 1600); // Wait for the animation to finish before hiding
-    }, 1600);
-  } else {
-    scoreboardWrapper.style.display = "flex";
-    scoreboardWrapper.style.animation = "slideIn 1s ease forwards";
-    setTimeout(() => {
-      pieces.forEach((el, i) => {
-        el.classList.remove(
-          "exit-1",
-          "exit-2",
-          "exit-3",
-          "exit-4",
-          "exit-5",
-          "exit-6"
-        ); // Remove exit classes
-        el.classList.add(`enter-${i + 1}`); // Add enter classes
-      });
-    }, 500); // Show immediately
-  }
-  scoreboardVisibility = !scoreboardVisibility; // Toggle visibility state
-}
-
 function showExtraTime(data) {
   const extraTimePopup = document.getElementById("extraTimePopup");
   extraTimePopup.textContent = `+${data.minutes}`;
@@ -326,6 +331,8 @@ function showExtraTime(data) {
     extraTimePopup.classList.add("show");
   }
 }
+
+// Card Functions
 
 function updateRedCards(team, count, show = true) {
   const container = document.getElementById(`${team}RedCards`);
@@ -365,7 +372,8 @@ function toggleRedCards(team) {
   }
 }
 
-// Show a substitution with team logos (you can adjust the logo placement and animation)
+// Substitution Functions
+
 function showSubstitution(playerIn, playerOut, team) {
   const popup = document.getElementById("subPopup");
 
@@ -373,7 +381,6 @@ function showSubstitution(playerIn, playerOut, team) {
   document.getElementById("subOutName").textContent = playerOut;
 
   document.getElementById("subInLogo").src = team === "home" ? "/assets/84107179.png" : "/assets/Almodovar.png"; // Set the logo based on the team
-  //document.getElementById("subOutLogo").src = team === "home" ? "/assets/84107179.png" : "/assets/Almodovar.png"; // Set the logo based on the team
 
   const inWrapper = document.getElementById("inWrapper");
   const outWrapper = document.getElementById("outWrapper");
