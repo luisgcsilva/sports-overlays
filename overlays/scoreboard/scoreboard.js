@@ -385,12 +385,16 @@ function showSubstitution(playerIn, playerOut, team) {
   popup.classList.add("show");
 
   setTimeout(() => {
-    inWrapper.style.transform = "translateY(140%)";
-    outWrapper.style.transform = "translateY(-140%)";
+    inWrapper.style.transform = "translateY(-140%)";
+    outWrapper.style.transform = "translateY(140%)";
   }, 2000); // Show for 4 seconds
 
   setTimeout(() => {
     popup.classList.remove("show"); // Hide the popup after the animation
     popup.classList.add("hide");
+      setTimeout(() => {
+        inWrapper.style.transform = "translateY(0%)";
+        outWrapper.style.transform = "translateY(0%)";
+      }, 600);
   }, 5000); // Show for 4 seconds
 }
