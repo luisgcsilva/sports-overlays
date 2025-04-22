@@ -64,7 +64,7 @@ body {
   height: auto;
 }
 .score-table td {
-  padding: 3px;
+  padding: 5px;
   vertical-align: middle;
 }
 .score-table {
@@ -194,20 +194,74 @@ body {
   align-items: center;
   gap: 8px;
 }
-
 #goalScorerPopup.show {
   opacity: 1;
   transform: translateX(0);
 }
-
 .goal-logo {
   width: 20px;
   height: 20px;
   object-fit: contain;
 }
-
 .goal-icon {
   font-size: 16px;
+}
+
+.sub-popup {
+  position: absolute;
+  margin-top: 2px;
+  background-color: rgba(17, 0, 179);
+  color: white;
+  border-radius: 8px;
+  z-index: 20;
+  max-width: 100%;
+  display: flex;
+  opacity: 0;
+  flex-direction: column;
+  gap: 5px;
+  font-size: 14px;
+  font-weight: bold;
+  padding-bottom: 5px;
+}
+.sub-popup.show {
+  display: flex;
+  animation: slideUpFadeIn 0.5s ease forwards;
+}
+.sub-popup.hide {
+  animation: slideDownFadeOut 0.5s ease forwards;
+}
+.sub-container{
+  transition: transform 1s ease;
+}
+.sub-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 1px solid white;
+  padding: 5px;
+}
+.sub-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 2px 5px 2px 5px;
+}
+.arrow-icon {
+  font-size: 16px;
+  font-weight: bold;
+  margin-left: auto;
+}
+.in-arrow {
+  color: limegreen;
+}
+.out-arrow {
+  color: red;
+}
+.sub-logo {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  margin-left: auto;
 }
 
 .piece {
@@ -445,6 +499,28 @@ body {
   }
   to {
     transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+@keyframes slideUpFadeIn {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideDownFadeOut {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-20px);
     opacity: 0;
   }
 }

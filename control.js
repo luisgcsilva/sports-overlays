@@ -112,3 +112,15 @@ function toggleHomeRedCards() {
 function toggleAwayRedCards() {
   ws.send(JSON.stringify({ type: "toggleRedCards", team: "away" }));
 }
+
+function sendSubHome() {
+  const playerIn = document.getElementById("subInName").value;
+  const playerOut = document.getElementById("subOutName").value;
+  ws.send(JSON.stringify({ type: "showSubstition", team: "home", playerIn, playerOut }));
+}
+
+function sendSubAway() {
+  const playerIn = document.getElementById("subInName").value;
+  const playerOut = document.getElementById("subOutName").value;
+  ws.send(JSON.stringify({ type: "showSubstition", team: "away", playerIn, playerOut }));
+}

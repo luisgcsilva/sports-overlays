@@ -99,6 +99,9 @@ function handleMessage(data) {
       console.log("Toggle red cards for team:", data.team);
       toggleRedCards(data.team);
       break;
+    case "showSubstition":
+      showSubstitution(data.playerIn, data.playerOut, data.team);
+      break;
   }
 }
 
@@ -363,22 +366,31 @@ function toggleRedCards(team) {
 }
 
 // Show a substitution with team logos (you can adjust the logo placement and animation)
-function showSubstitution(data) {
-  const substitutionPopup = document.getElementById("substitutionPopup");
-  substitutionPopup.textContent = `${data.team} Substitution: ${data.playerIn} in, ${data.playerOut} out`;
+function showSubstitution(playerIn, playerOut, team) {
+  const popup = document.getElementById("subPopup");
 
-  // Show the logo (you'll need to set your logos in the HTML)
-  const logo = document.getElementById(data.team + "Logo");
-  if (logo) {
-    logo.style.opacity = 1;
-  }
+  document.getElementById("subInName").textContent = playerIn;
+  document.getElementById("subOutName").textContent = playerOut;
 
-  // Show substitution popup
-  substitutionPopup.style.opacity = 1;
+  document.getElementById("subInLogo").src = team === "home" ? "/assets/84107179.png" : "/assets/Almodovar.png"; // Set the logo based on the team
+  //document.getElementById("subOutLogo").src = team === "home" ? "/assets/84107179.png" : "/assets/Almodovar.png"; // Set the logo based on the team
+
+  const inWrapper = document.getElementById("inWrapper");
+  const outWrapper = document.getElementById("outWrapper");
+
+  inWrapper.style.transform = "translateY(0)";
+  outWrapper.style.transform = "translateY(0)";
+
+  popup.classList.remove("hide");
+  popup.classList.add("show");
+
   setTimeout(() => {
-    substitutionPopup.style.opacity = 0;
-    if (logo) {
-      logo.style.opacity = 0;
-    }
-  }, 4000);
+    inWrapper.style.transform = "translateY(140%)";
+    outWrapper.style.transform = "translateY(-140%)";
+  }, 2000); // Show for 4 seconds
+
+  setTimeout(() => {
+    popup.classList.remove("show"); // Hide the popup after the animation
+    popup.classList.add("hide");
+  }, 5000); // Show for 4 seconds
 }

@@ -24,7 +24,7 @@
               </span>
             </td>
         </tr>
-        <tr class="peace divider-row">
+        <tr class="piece divider-row">
           <td colspan="3"></td>
         <tr class="piece">
             <td><img src="/assets/Almodovar.png" class="logo" /></td>
@@ -48,6 +48,27 @@
       <span class="goal-icon">⚽</span>
       <img id="goalTeamLogo" class="goal-logo" src="" />
       <span id="goalScorerText"></span>
+    </div>
+    <div id="subPopup" class="sub-popup">
+      <div class="sub-header">
+        <span class="sub-header-text">Substituição </span>
+        <img class="sub-logo" id="subInLogo" src="" />
+      </div>
+      <div class="sub-container" id="inWrapper">
+        <div class="sub-row in">
+          <span class="player-name" id="subInName"></span>
+          <span class="arrow-icon in-arrow">&#129145;</span>
+        </div>
+      </div>
+
+      <span class="divider-horizontal"></span>
+
+      <div class="sub-container" id="outWrapper">
+        <div class="sub-row out">
+          <span class="player-name" id="subOutName"></span>
+          <span class="arrow-icon out-arrow">&#129147;</span>
+        </div>
+      </div>
     </div>
   </div>
   <script src="scoreboard.js"></script>
