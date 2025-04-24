@@ -124,3 +124,7 @@ function sendSubAway() {
   const playerOut = document.getElementById("subOutName").value;
   ws.send(JSON.stringify({ type: "showSubstition", team: "away", playerIn, playerOut }));
 }
+
+function toggleRefLineup() {
+  ws.send(JSON.stringify({ type: "toggleRefLineup" }));
+}
