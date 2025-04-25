@@ -1,0 +1,490 @@
+body {
+  background: black;
+  color: #fff;
+  font-family: Arial, sans-serif;
+  padding: 40px;
+}
+
+.lineup-container {
+  background-color: rgba(17, 0, 179, 0.8);
+  border-radius: 60px;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
+  color: white;
+  padding: 2rem;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.team-header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+.team-info {
+  display: flex;
+  align-items: center;
+}
+
+.team-logo {
+  height: 80px;
+  width: auto;
+}
+
+.team-name {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.content-wrapper {
+  display: grid;
+  position: relative;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+}
+
+.section-title {
+  font-size: 1.2rem;
+  color: white;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.players-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.player-card {
+  border-radius: 8px;
+  padding: 0.5rem;
+  width: 120px;
+  text-align: center;
+}
+
+.player-photo {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  border: 2px solid white;
+  margin-bottom: 0.5rem;
+}
+
+.player-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.number {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: white;
+}
+
+.name {
+  font-size: 0.9rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.position {
+  font-size: 0.8rem;
+  color: #888;
+}
+
+.right-panel {
+  padding: 1.5rem;
+  border-radius: 12px;
+  border: 1px solid white;
+}
+
+.coach-section {
+  margin-bottom: 2rem;
+}
+
+.coach-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.coach-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.coach-photo {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.coach-name {
+  font-size: 1.1em;
+  font-weight: bold;
+}
+.coach-text {
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+  font-size: 1.1em;
+  font-weight: bold;
+}
+
+.subs-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.sub-player {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+}
+
+.sub-info {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+.sub-info .number {
+  width: 20px;
+}
+
+.sub-player .player-photo {
+  width: 40px;
+  height: 40px;
+}
+.lineup-wrapper {
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  width: fit-content;
+}
+
+.formation-container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  width: fit-content;
+}
+
+.lineup-list {
+  color: white;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+  background-color: rgb(17, 0, 179);
+  padding: 10px 0px;
+  border-radius: 10px 0 0 10px;
+}
+
+.lineup-list h3 {
+  margin: 0 0 10px;
+  font-size: 20px;
+  padding: 0 10px;
+}
+
+.lineup-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.lineup-list li {
+  padding: 5px 10px;
+  border-top: 1px solid white;
+}
+
+.formation-grid {
+  border-radius: 16px;
+  border: 1px solid white;
+  padding: 2rem;
+  min-height: 600px;
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.formation-row {
+  display: flex;
+  justify-content: space-evenly;
+  padding: 1rem 0;
+}
+
+.piece {
+  opacity: 0;
+  position: relative;
+  transform: translateX(-150%);
+  transition: opacity 1s ease, transform 1s ease;
+  transition-delay: 0.5s;
+}
+
+.piece.enter-1 {
+  opacity: 1;
+  transform: translateX(0);
+  transition-delay: 0.2s; /* No delay */
+}
+.piece.enter-2 {
+  opacity: 1;
+  transform: translateX(0);
+  transition-delay: 0.4s; /* Slight delay */
+}
+.piece.enter-3 {
+  opacity: 1;
+  transform: translateX(0);
+  transition-delay: 0.6s;
+}
+.piece.enter-4 {
+  opacity: 1;
+  transform: translateX(0);
+  transition-delay: 0.8s;
+}
+.piece.enter-5 {
+  opacity: 1;
+  transform: translateX(0);
+  transition-delay: 1s;
+}
+.piece.enter-6 {
+  opacity: 1;
+  transform: translateX(0);
+  transition-delay: 1.2s;
+}
+.piece.enter-7 {
+  opacity: 1;
+  transform: translateX(0);
+  transition-delay: 1.4s;
+}
+.piece.enter-8 {
+  opacity: 1;
+  transform: translateX(0);
+  transition-delay: 1.6s;
+}
+.piece.enter-9 {
+  opacity: 1;
+  transform: translateX(0);
+  transition-delay: 1.8s;
+}
+.piece.enter-10 {
+  opacity: 1;
+  transform: translateX(0);
+  transition-delay: 2.0s;
+}
+.piece.enter-11 {
+  opacity: 1;
+  transform: translateX(0);
+  transition-delay: 2.2s;
+}
+.piece.enter-12 {
+  opacity: 1;
+  transform: translateX(0);
+  transition-delay: 2.4s;
+}
+.piece.enter-13 {
+  opacity: 1;
+  transform: translateX(0);
+  transition-delay: 2.6s;
+}
+.piece.enter-14 {
+  opacity: 1;
+  transform: translateX(0);
+  transition-delay: 2.8s;
+}
+.piece.enter-15 {
+  opacity: 1;
+  transform: translateX(0);
+  transition-delay: 3.0s;
+}
+.piece.enter-16 {
+  opacity: 1;
+  transform: translateX(0);
+  transition-delay: 3.2s;
+}
+.piece.enter-17 {
+  opacity: 1;
+  transform: translateX(0);
+  transition-delay: 3.4s;
+}
+.piece.enter-18 {
+  opacity: 1;
+  transform: translateX(0);
+  transition-delay: 3.6s;
+}
+.piece.enter-19 {
+  opacity: 1;
+  transform: translateX(0);
+  transition-delay: 3.8s;
+}
+.piece.enter-20 {
+  opacity: 1;
+  transform: translateX(0);
+  transition-delay: 4.0s;
+}
+.piece.enter-21 {
+  opacity: 1;
+  transform: translateX(0);
+  transition-delay: 4.2s;
+}
+.piece.enter-22 {
+  opacity: 1;
+  transform: translateX(0);
+  transition-delay: 4.4s;
+}
+
+
+.piece.exit-1 {
+  opacity: 0;
+  transform: translateX(-100%);
+  transition-delay: 0.2s;
+}
+.piece.exit-2 {
+  opacity: 0;
+  transform: translateX(-100%);
+  transition-delay: 0.4s;
+}
+.piece.exit-3 {
+  opacity: 0;
+  transform: translateX(-100%);
+  transition-delay: 0.6s;
+}
+.piece.exit-4 {
+  opacity: 0;
+  transform: translateX(-100%);
+  transition-delay: 0.8s;
+}
+.piece.exit-5 {
+  opacity: 0;
+  transform: translateX(-100%);
+  transition-delay: 1s;
+}
+.piece.exit-6 {
+  opacity: 0;
+  transform: translateX(-100%);
+  transition-delay: 1.2s;
+}
+.piece.exit-7 {
+  opacity: 0;
+  transform: translateX(-100%);
+  transition-delay: 1.4s;
+}
+.piece.exit-8 {
+  opacity: 0;
+  transform: translateX(-100%);
+  transition-delay: 1.6s;
+}
+.piece.exit-9 {
+  opacity: 0;
+  transform: translateX(-100%);
+  transition-delay: 1.8s;
+}
+.piece.exit-10 {
+  opacity: 0;
+  transform: translateX(-100%);
+  transition-delay: 2.0s;
+}
+.piece.exit-11 {
+  opacity: 0;
+  transform: translateX(-100%);
+  transition-delay: 2.2s;
+}
+.piece.exit-12 {
+  opacity: 0;
+  transform: translateX(-100%);
+  transition-delay: 2.4s;
+}
+.piece.exit-13 {
+  opacity: 0;
+  transform: translateX(-100%);
+  transition-delay: 2.6s;
+}
+.piece.exit-14 {
+  opacity: 0;
+  transform: translateX(-100%);
+  transition-delay: 2.8s;
+}
+.piece.exit-15 {
+  opacity: 0;
+  transform: translateX(-100%);
+  transition-delay: 3.0s;
+}
+.piece.exit-16 {
+  opacity: 0;
+  transform: translateX(-100%);
+  transition-delay: 3.2s;
+}
+.piece.exit-17 {
+  opacity: 0;
+  transform: translateX(-100%);
+  transition-delay: 3.4s;
+}
+.piece.exit-18 {
+  opacity: 0;
+  transform: translateX(-100%);
+  transition-delay: 3.6s;
+}
+.piece.exit-19 {
+  opacity: 0;
+  transform: translateX(-100%);
+  transition-delay: 3.8s;
+}
+.piece.exit-20 {
+  opacity: 0;
+  transform: translateX(-100%);
+  transition-delay: 4.0s;
+}
+.piece.exit-21 {
+  opacity: 0;
+  transform: translateX(-100%);
+  transition-delay: 4.2s;
+}
+.piece.exit-22 {
+  opacity: 0;
+  transform: translateX(-100%);
+  transition-delay: 4.4s;
+}
+
+
+@keyframes slideUp {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0%);
+    opacity: 1;
+  }
+}
+  
+@keyframes slideDown {
+  from {
+    transform: translateX(0%);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+}

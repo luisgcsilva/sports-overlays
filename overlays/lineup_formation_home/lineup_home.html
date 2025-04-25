@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Home Lineup</title>
+    <link rel="stylesheet" href="lineup_home.css" />
+  </head>
+  <body>
+    <div class="lineup-container" id="lineupWrapper">
+        <!-- Header with team info -->
+      <div class="team-header piece">
+        <img src="/assets/84107179.png" alt="Team Logo" class="team-logo" />
+        <h1 class="team-name">Clube Desportivo Praia Milfontes</h1>
+      </div>
+
+      <!-- Main content wrapper -->
+      <div class="content-wrapper">
+        <!-- Starting XI -->
+        <div class="starting-xi">
+          <div class="formation-grid" id="formationGrid">
+            <h2 class="section-title piece">11 INICIAL</h2>
+          <!-- Forwards Row -->
+            <div class="formation-row forwards">
+              <div class="player-card piece" data-position="FW"></div>
+              <div class="player-card piece" data-position="FW"></div>
+              <div class="player-card piece" data-position="FW"></div>
+            </div>
+            <!-- Midfielders Row -->
+            <div class="formation-row midfielders">
+              <div class="player-card piece" data-position="MF"></div>
+              <div class="player-card piece" data-position="MF"></div>
+              <div class="player-card piece" data-position="MF"></div>
+            </div>
+            <!-- Defenders Row -->
+            <div class="formation-row defenders">
+              <div class="player-card piece" data-position="DF"></div>
+              <div class="player-card piece" data-position="DF"></div>
+              <div class="player-card piece" data-position="DF"></div>
+              <div class="player-card piece" data-position="DF"></div>
+            </div>
+            <!-- Goalkeeper -->
+            <div class="formation-row goalkeeper">
+              <div class="player-card piece" data-position="GK"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right side info -->
+        <div class="right-panel" id="subList">
+          <!-- Coach info -->
+          <div class="coach-section piece">
+            <h3 class="section-title">TREINADOR</h3>
+            <div class="coach-info">
+              <img
+                src="/assets/players/11.png"
+                alt="Coach"
+                class="coach-photo"
+              />
+              <span class="coach-name">Vítor Franco</span>
+            </div>
+          </div>
+
+          <!-- Substitutes -->
+          <div class="substitutes">
+            <h3 class="section-title piece">SUPLENTES</h3>
+            <div class="subs-list" id="subsList"></div>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+    <script src="lineup_home.js"></script>
+  </body>
+</html>
