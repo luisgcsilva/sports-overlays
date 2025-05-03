@@ -43,7 +43,7 @@ function toggleHomeLineup() {
 
     console.log(pieces);
 
-    const totalExitTime = pieces.length * 200 + 500; // Calculate total exit time based on number of pieces
+    const totalExitTime = pieces.length * 100 + 500; // Calculate total exit time based on number of pieces
 
     setTimeout(() => {
       lineupWrapper.style.animation = "slideDown 1s ease forwards";
@@ -79,48 +79,66 @@ function toggleHomeLineup() {
 }
 
 function populateFormation(data) {
-  const positions = {
-    GK: document.querySelector(".goalkeeper .player-card"),
-    DF: document.querySelectorAll(".defenders .player-card"),
-    MF: document.querySelectorAll(".midfielders .player-card"),
-    FW: document.querySelectorAll(".forwards .player-card"),
+  // Clear all formation rows
+  document.getElementById('forwardsRow').innerHTML = '';
+  document.getElementById('midfieldersRow').innerHTML = '';
+  document.getElementById('defendersRow').innerHTML = '';
+  document.getElementById('goalkeeperRow').innerHTML = '';
+
+  // Group players by position
+  const playersByPosition = {
+    GK: [],
+    DF: [],
+    MF: [],
+    FW: []
   };
 
-  data.startingXI.forEach((player) => {
-    const playerHTML = `
-            <img src="${player.photo}" alt="${player.name}" class="player-photo">
-            <div class="player-info">
-                <span class="number">${player.number}</span>
-                <span class="name">${player.name}</span>
-            </div>
-        `;
-
-    if (player.position === "GK") {
-      positions.GK.innerHTML = playerHTML;
-    } else {
-      const positionElements = positions[player.position];
-      const emptySlot = Array.from(positionElements).find(
-        (el) => !el.innerHTML
-      );
-      if (emptySlot) {
-        emptySlot.innerHTML = playerHTML;
-      }
+  // Sort players into their respective positions
+  data.startingXI.forEach(player => {
+    if (playersByPosition[player.position]) {
+      playersByPosition[player.position].push(player);
     }
   });
 
+  // Create player cards for each position
+  Object.entries(playersByPosition).forEach(([position, players]) => {
+    const rowId = position === 'GK' ? 'goalkeeperRow' : 
+                 position === 'DF' ? 'defendersRow' :
+                 position === 'MF' ? 'midfieldersRow' : 'forwardsRow';
+    
+    const row = document.getElementById(rowId);
+    
+    players.forEach(player => {
+      const playerCard = document.createElement('div');
+      playerCard.className = 'player-card piece';
+      playerCard.dataset.position = position;
+      
+      playerCard.innerHTML = `
+        <img src="${player.photo}" alt="${player.name}" class="player-photo">
+        <div class="player-info">
+          <span class="number">${player.number}</span>
+          <span class="name">${player.name}</span>
+        </div>
+      `;
+      
+      row.appendChild(playerCard);
+    });
+  });
+
+  // Handle substitutes
   document.getElementById("subsList").innerHTML = ""; // Clear previous substitutes
   data.substitutes
     .filter((sub) => sub && sub.name)
     .forEach((sub) => {
       const subHTML = `
-            <div class="sub-player piece">
-            <img src="${sub.photo}" alt="${sub.name}" class="player-photo">
-                <div class="sub-info">
-                    <span class="number">${sub.number}</span>
-                    <span class="name">${sub.name}</span>
-                </div>
-            </div>
-        `;
+        <div class="sub-player piece">
+          <img src="${sub.photo}" alt="${sub.name}" class="player-photo">
+          <div class="sub-info">
+            <span class="number">${sub.number}</span>
+            <span class="name">${sub.name}</span>
+          </div>
+        </div>
+      `;
       document.getElementById("subsList").innerHTML += subHTML;
-    }); // Call the function to toggle visibility
+    });
 }

@@ -13,6 +13,7 @@ app.use("/matchup", express.static(path.join(__dirname, "overlays", "matchup_low
 app.use("/lineup_home", express.static(path.join(__dirname, "overlays", "lineup_formation_home")));
 app.use("/refs", express.static(path.join(__dirname, "overlays", "ref_lineup")));
 app.use("/matchup_stacked", express.static(path.join(__dirname, "overlays", "matchup_stacked")));
+app.use("/lineup_away", express.static(path.join(__dirname, "overlays", "lineup_away")));
 app.use("/", express.static(__dirname));
 
 const PORT = 3000;
