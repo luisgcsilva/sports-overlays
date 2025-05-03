@@ -36,7 +36,6 @@ function handleMessage(data) {
 function toggleHomeLineup() {
   const pieces = Array.from(document.querySelectorAll(".piece"));
   if (lineupVisibilyity) {
-
     pieces.forEach((el, i) => {
       el.classList.remove(`enter-${i + 1}`); // Remove enter classes
       el.classList.add(`exit-${i + 1}`);
@@ -58,14 +57,14 @@ function toggleHomeLineup() {
           }); // Remove all classes
           el.classList.add("piece");
         });
-       // Add the base class back
+        // Add the base class back
         lineupWrapper.style.display = "none"; // Hide the wrapper after animation
       }, totalExitTime - 500);
-      }, totalExitTime); // Matchup will be hidden after 500ms
+    }, totalExitTime); // Matchup will be hidden after 500ms
   } else {
     lineupWrapper.style.display = "flex";
     lineupWrapper.style.animation = "slideUp 1s ease forwards"; // Add animation to the wrapper
-      setTimeout(() => {
+    setTimeout(() => {
       pieces.forEach((el, i) => {
         el.classList.forEach((cls) => {
           if (cls.startsWith("exit-")) {

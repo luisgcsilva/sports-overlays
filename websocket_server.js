@@ -12,6 +12,7 @@ app.use("/scoreboard", express.static(path.join(__dirname, "overlays", "scoreboa
 app.use("/matchup", express.static(path.join(__dirname, "overlays", "matchup_lower_third")));
 app.use("/lineup_home", express.static(path.join(__dirname, "overlays", "lineup_formation_home")));
 app.use("/refs", express.static(path.join(__dirname, "overlays", "ref_lineup")));
+app.use("/matchup_stacked", express.static(path.join(__dirname, "overlays", "matchup_stacked")));
 app.use("/", express.static(__dirname));
 
 const PORT = 3000;

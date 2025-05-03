@@ -31,6 +31,10 @@ body {
   width: 50%;
 }
 
+.team-score {
+  font-weight: bold;
+}
+
 .piece {
   opacity: 0;
   position: relative;
@@ -70,6 +74,16 @@ body {
   transform: translateX(0);
   transition-delay: 1.2s;
 }
+.piece.enter-7 {
+  opacity: 1;
+  transform: translateX(0);
+  transition-delay: 1.4s;
+}
+.piece.enter-8 {
+  opacity: 1;
+  transform: translateX(0);
+  transition-delay: 1.6s;
+}
 
 .piece.exit-1 {
   opacity: 0;
@@ -101,12 +115,21 @@ body {
   transform: translateY(100%);
   transition-delay: 1.2s;
 }
+.piece.exit-7 {
+  opacity: 0;
+  transform: translateY(100%);
+  transition-delay: 1.4s;
+}
+.piece.exit-8 {
+  opacity: 0;
+  transform: translateY(100%);
+  transition-delay: 1.6s;
+}
 
 .divider {
   height: 2px;
   background: white;
   width: 100%;
-  margin: 0.5rem auto;
   opacity: 0;
 }
 
@@ -119,6 +142,15 @@ body {
   opacity: 0;
   transform: scaleX(0);
   transition-delay: 0.2s; /* No delay */
+}
+
+.divider-vertical {
+  width: 2px;
+  background: white;
+  height: 100%;
+  opacity: 0;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 .competitionInfo {
@@ -134,8 +166,8 @@ body {
 .compLogo {
   position: absolute;
   left: 15px;
-  width: 28px;
-  height: 28px;
+  width: 24px;
+  height: 24px;
   object-fit: contain;
 }
 
@@ -146,7 +178,6 @@ body {
   flex-wrap: wrap;
   width: fit-content;
   gap: 20px;
-  padding: 5px 10px 5px 10px;
 }
 
 .matchday {
@@ -162,6 +193,13 @@ body {
 .team {
   display: flex;
   align-items: center;
+  gap: 10px;
+  padding: 10px 0 10px 0;
+}
+
+.score {
+  padding-left: 10px;
+  padding-right: 10px;
   gap: 10px;
 }
 

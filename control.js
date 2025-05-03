@@ -40,26 +40,34 @@ function sendGoal() {
 function goalHome() {
   const scorer = document.getElementById("scorer").value;
   ws.send(JSON.stringify({ type: "homeGoal", team: "home", scorer: scorer }));
+  sendMatchupGoal();
 }
 
-function toggleHomeGoalScorer(){
-  const scorer = document.getElementById("scorer").value;
-  ws.send(JSON.stringify({ type: "toggleGoalScorer", team: "home", scorer: scorer }));
+function sendMatchupGoal() {
+  ws.send(JSON.stringify({ type: "updateGoalMatchup", team: "home" }));
 }
 
-function toggleAwayGoalScorer(){
+function toggleHomeGoalScorer() {
   const scorer = document.getElementById("scorer").value;
-  ws.send(JSON.stringify({ type: "toggleGoalScorer", team: "away", scorer: scorer }));
+  ws.send(
+    JSON.stringify({ type: "toggleGoalScorer", team: "home", scorer: scorer })
+  );
 }
- 
+
+function toggleAwayGoalScorer() {
+  const scorer = document.getElementById("scorer").value;
+  ws.send(
+    JSON.stringify({ type: "toggleGoalScorer", team: "away", scorer: scorer })
+  );
+}
+
 function removeGoalHome() {
   ws.send(JSON.stringify({ type: "removeGoalHome", team: "home" }));
 }
 
-function resetGoalsHome() {}
-
 function goalAway() {
   ws.send(JSON.stringify({ type: "awayGoal", team: "away" }));
+  sendMatchupGoal();
 }
 
 function removeGoalAway() {
@@ -116,13 +124,27 @@ function toggleAwayRedCards() {
 function sendSubHome() {
   const playerIn = document.getElementById("subInName").value;
   const playerOut = document.getElementById("subOutName").value;
-  ws.send(JSON.stringify({ type: "showSubstition", team: "home", playerIn, playerOut }));
+  ws.send(
+    JSON.stringify({
+      type: "showSubstition",
+      team: "home",
+      playerIn,
+      playerOut,
+    })
+  );
 }
 
 function sendSubAway() {
   const playerIn = document.getElementById("subInName").value;
   const playerOut = document.getElementById("subOutName").value;
-  ws.send(JSON.stringify({ type: "showSubstition", team: "away", playerIn, playerOut }));
+  ws.send(
+    JSON.stringify({
+      type: "showSubstition",
+      team: "away",
+      playerIn,
+      playerOut,
+    })
+  );
 }
 
 function toggleRefLineup() {
@@ -137,22 +159,53 @@ function toggleAwayLineup() {
   ws.send(JSON.stringify({ type: "toggleAwayLineup" }));
 }
 
+function sendMatchupData() {
+  const homeTeam = document.getElementById("inputHomeName").value;
+  const homeLogo = `/assets/logos/${
+    document.getElementById("inputHomeLogo").value
+  }.png`;
+  const homeScore = document.getElementById("inputHomeScore").value;
+  const awayTeam = document.getElementById("inputAwayName").value;
+  const awayLogo = `/assets/logos/${
+    document.getElementById("inputAwayLogo").value
+  }.png`;
+  const awayScore = document.getElementById("inputAwayScore").value;
+  const data = {
+    homeTeam: {
+      name: homeTeam,
+      logo: homeLogo,
+      score: homeScore,
+    },
+    awayTeam: {
+      name: awayTeam,
+      logo: awayLogo,
+      score: awayScore,
+    },
+  };
+
+  ws.send(JSON.stringify({ type: "updateMatchupData", matchupData: data }));
+}
+
+function toggleMatchupStacked() {
+  ws.send(JSON.stringify({ type: "toggleMatchupStacked" }));
+}
+
 function collectLineupData() {
   const lineup = {
-      startingXI: [],
-      substitutes: []
+    startingXI: [],
+    substitutes: [],
   };
 
   // Collect starting XI data
   for (let i = 0; i < 11; i++) {
-      pNumber = document.getElementById(`player${i}_number`).value;
-      const player = {
-          number: pNumber,
-          name: document.getElementById(`player${i}_name`).value,
-          position: document.getElementById(`player${i}_position`).value,
-          photo: `/assets/players/${pNumber}.png` // Assuming the photo is named by the number
-      };
-      lineup.startingXI.push(player);
+    pNumber = document.getElementById(`player${i}_number`).value;
+    const player = {
+      number: pNumber,
+      name: document.getElementById(`player${i}_name`).value,
+      position: document.getElementById(`player${i}_position`).value,
+      photo: `/assets/players/${pNumber}.png`, // Assuming the photo is named by the number
+    };
+    lineup.startingXI.push(player);
   }
 
   // Collect substitutes data
@@ -160,9 +213,9 @@ function collectLineupData() {
     const pNumber = document.getElementById(`sub${i}_number`).value;
     if (pNumber) {
       const sub = {
-          number: document.getElementById(`sub${i}_number`).value,
-          name: document.getElementById(`sub${i}_name`).value,
-          photo: `/assets/players/${pNumber}.png` 
+        number: document.getElementById(`sub${i}_number`).value,
+        name: document.getElementById(`sub${i}_name`).value,
+        photo: `/assets/players/${pNumber}.png`,
       };
       lineup.substitutes.push(sub);
     }
@@ -174,10 +227,12 @@ function collectLineupData() {
 function sendLineup() {
   const lineup = collectLineupData();
   // Send to WebSocket
-  ws.send(JSON.stringify({
-      type: 'updateLineup',
-      lineup: lineup
-  }));
+  ws.send(
+    JSON.stringify({
+      type: "updateLineup",
+      lineup: lineup,
+    })
+  );
 }
 
 const lineupFormHTML = `
@@ -191,7 +246,9 @@ const lineupFormHTML = `
               <span>Name</span>
               <span>Position</span>
           </div>
-          ${Array.from({length: 11}).map((_, i) => `
+          ${Array.from({ length: 11 })
+            .map(
+              (_, i) => `
               <div class="player-input-row">
                   <input type="number" id="player${i}_number" placeholder="#" />
                   <input type="text" id="player${i}_name" placeholder="Player Name" />
@@ -202,18 +259,24 @@ const lineupFormHTML = `
                       <option value="FW">Forward</option>
                   </select>
               </div>
-          `).join('')}
+          `
+            )
+            .join("")}
       </div>
 
       <!-- Substitutes -->
       <h3>Substitutes</h3>
       <div class="subs-grid">
-          ${Array.from({length: 7}).map((_, i) => `
+          ${Array.from({ length: 7 })
+            .map(
+              (_, i) => `
               <div class="player-input-row">
                   <input type="number" id="sub${i}_number" placeholder="#" />
                   <input type="text" id="sub${i}_name" placeholder="Sub Name" />
               </div>
-          `).join('')}
+          `
+            )
+            .join("")}
       </div>
 
       <div class="lineup-buttons">
@@ -224,5 +287,5 @@ const lineupFormHTML = `
     </div>
   `;
 
-  // Inject into the page
-  document.getElementById('lineupFormContainer').innerHTML = lineupFormHTML;
+// Inject into the page
+document.getElementById("lineupFormContainer").innerHTML = lineupFormHTML;

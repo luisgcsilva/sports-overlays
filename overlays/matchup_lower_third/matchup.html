@@ -1,36 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>Soccer Lineup Overlay</title>
-  <link rel="stylesheet" href="matchup.css" />
-</head>
-<body>
-  <div id="matchupWrapper">
-    <div id="matchup">
-      <div class="competitionInfo piece">
-        <img class="compLogo" id="compLogo" src="/assets/83191763.png" />
-        <span class="matchday" id="matchday">Meias Finais da Taça Distrito de Beja</span>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Soccer Lineup Overlay</title>
+    <link rel="stylesheet" href="matchup.css" />
+  </head>
+  <body>
+    <div id="matchupWrapper">
+      <div id="matchup">
+        <div class="competitionInfo piece">
+          <img class="compLogo" id="compLogo" src="/assets/83191763.png" />
+          <span class="matchday" id="matchday">
+            Meias Finais da Taça Distrito de Beja
+          </span>
+        </div>
+
+        <div id="divider" class="divider"></div>
+
+        <div class="teamsRow">
+          <div class="team piece" id="homeTeam">
+            <img class="teamLogo" id="homeLogo" src="/assets/84107179.png" />
+            <span class="teamName" id="homeName">CD PRAIA MILFONTES</span>
+          </div>
+
+          <div class="divider-vertical piece"></div>
+
+          <div class="score piece">
+            <span class="team-score" id="homeScore"></span>
+            <span class="vs piece" id="vsDivider">vs</span>
+            <span class="team-score" id="awayScore"></span>
+          </div>
+
+          <div class="divider-vertical piece"></div>
+
+          <div class="team piece" id="awayTeam">
+            <span class="teamName" id="awayName">FC CASTRENSE</span>
+            <img class="teamLogo" id="awayLogo" src="/assets/Almodovar.png" />
+          </div>
+        </div>
       </div>
-
-      <div id="divider" class="divider"></div>
-
-      <div class="teamsRow">
-        <div class="team piece" id="homeTeam">
-          <img class="teamLogo" id="homeLogo" src="/assets/84107179.png" />
-          <span class="teamName" id="homeName">CD PRAIA MILFONTES</span>
-        </div>
-
-        <span class="vs piece">vs</span>
-
-        <div class="team piece" id="awayTeam">
-          <span class="teamName" id="awayName">FC CASTRENSE</span>
-          <img class="teamLogo" id="awayLogo" src="/assets/Almodovar.png" />
-        </div>
-        </div>
-      
     </div>
-  </div>
-  <script src="matchup.js"></script>
-</body>
+    <script src="matchup.js"></script>
+  </body>
 </html>

@@ -34,6 +34,18 @@
     <div class="section">
       <h2>Matchup</h2>
         <button onclick="toggleMatchup()">Toggle Matchup</button>
+      <div class="matchup-form">
+        <input type="text" id="inputHomeName" placeholder="Home Team Name">
+        <input type="text" id="inputHomeLogo" placeholder="Home Logo URL">
+        <input type="number" id="inputHomeScore" placeholder="Home Score">
+      
+        <input type="text" id="inputAwayName" placeholder="Away Team Name">
+        <input type="text" id="inputAwayLogo" placeholder="Away Logo URL">
+        <input type="number" id="inputAwayScore" placeholder="Away Score">
+      
+        <button onclick="sendMatchupData()">Send Matchup</button>
+        <button onclick="toggleMatchupStacked()">Toggle Matchup Stacked</button>
+      </div>
     </div>
 
     <div class="section">
