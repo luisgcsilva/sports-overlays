@@ -1,41 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Soccer Lineup Overlay</title>
+    <link rel="stylesheet" href="lineup_list.css" />
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <title>Soccer Lineup Overlay</title>
-  <link rel="stylesheet" href="lineup_list.css" />
-</head>
+  <body>
+    <div class="lineup-container" id="lineupWrapper">
+      <div class="team-header piece">
+        <div class="team-info piece">
+          <img
+            src="/assets/logos/almodovar.png"
+            alt="Team Logo"
+            class="team-logo"
+          />
+          <h1 class="team-name">CD Almodôvar</h1>
+        </div>
+        <div class="coach-info piece">
+          <span class="coach-name">Treinador - João Nunes</span>
+        </div>
+      </div>
 
-<body>
-  <div class="lineup-container" id="lineupWrapper">
-  <div class="team-header piece">
-    <div class="team-info piece">
-      <img src="/assets/logos/almodovar.png" alt="Team Logo" class="team-logo">
-      <h1 class="team-name">CD Almodôvar</h1>
+      <div class="lineup-list piece">
+        <ul>
+          <li class="piece">
+            <span class="number">1</span
+            ><span class="player-name">Player 1</span>
+          </li>
+          <li class="piece">
+            <span class="number">2</span
+            ><span class="player-name">Player 2</span>
+          </li>
+          <li class="piece">
+            <span class="number">3</span
+            ><span class="player-name">Player 3</span>
+          </li>
+          <li class="piece">
+            <span class="number">4</span
+            ><span class="player-name">Player 4</span>
+          </li>
+          <li class="piece">
+            <span class="number">5</span
+            ><span class="player-name">Player 5</span>
+          </li>
+          <li class="piece">
+            <span class="number">6</span
+            ><span class="player-name">Player 6</span>
+          </li>
+          <li class="piece">
+            <span class="number">7</span
+            ><span class="player-name">Player 7</span>
+          </li>
+          <li class="piece">
+            <span class="number">8</span
+            ><span class="player-name">Player 8</span>
+          </li>
+          <li class="piece">
+            <span class="number">9</span
+            ><span class="player-name">Player 9</span>
+          </li>
+          <li class="piece">
+            <span class="number">10</span
+            ><span class="player-name">Player 10</span>
+          </li>
+          <li class="piece">
+            <span class="number">99</span
+            ><span class="player-name">Player 11</span>
+          </li>
+        </ul>
+      </div>
     </div>
-    <div class="coach-info piece">
-      <span class="coach-name">Treinador - João Nunes</span>
-    </div>
-  </div>
-
-  <div class="lineup-list piece">
-    <ul>
-      <li class="piece"><span class="number">1</span><span class="player-name">Player 1</span></li>
-      <li class="piece"><span class="number">2</span><span class="player-name">Player 2</span></li>
-      <li class="piece"><span class="number">3</span><span class="player-name">Player 3</span></li>
-      <li class="piece"><span class="number">4</span><span class="player-name">Player 4</span></li>
-      <li class="piece"><span class="number">5</span><span class="player-name">Player 5</span></li>
-      <li class="piece"><span class="number">6</span><span class="player-name">Player 6</span></li>
-      <li class="piece"><span class="number">7</span><span class="player-name">Player 7</span></li>
-      <li class="piece"><span class="number">8</span><span class="player-name">Player 8</span></li>
-      <li class="piece"><span class="number">9</span><span class="player-name">Player 9</span></li>
-      <li class="piece"><span class="number">10</span><span class="player-name">Player 10</span></li>
-      <li class="piece"><span class="number">99</span><span class="player-name">Player 11</span></li>
-    </ul>
-    </div>
-  </div>
-  <script src="lineup_list.js"></script>
-</body>
-
+    <script src="lineup_list.js"></script>
+  </body>
 </html>
